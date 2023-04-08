@@ -33,10 +33,10 @@ echo_b "Building the docker images for Cello services: VERSION=${VERSION} ARCH=$
 
 for IMG in dashboard api-engine; do
 	HLC_IMG=hyperledger/cello-${IMG}
-	PATH=build_image/docker/common/${IMG}/Dockerfile.in
+	BUILD_PATH="/home/ub/work/cello/build_image/docker/common/${IMG}/Dockerfile.in"
 	if [ -z "$(docker images -q ${HLC_IMG}:latest 2> /dev/null)" ]; then  # not exist
-	echo_b "Build ${HLC_IMG} locally"
-	docker build -t ${HLC_IMG}:latest -f ${PATH} ./ --build-arg pip=${PIP} --platform linux/${ARCH}
+		echo_b "Build ${HLC_IMG} locally"
+		docker build -t ${HLC_IMG}:latest -f ${BUILD_PATH} /home/ub/work/cello --build-arg pip=${PIP} --platform linux/${ARCH}
 	else
 		echo_g "${HLC_IMG} already exist locally"
 	fi
